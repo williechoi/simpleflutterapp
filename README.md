@@ -1,10 +1,10 @@
 # simpleapp
 
-A new simple Flutter project
+A new simple Flutter app
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project derived from the basic Flutter application with a few modifications.
 
 A few resources to get you started if this is your first Flutter project:
 
