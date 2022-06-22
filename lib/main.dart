@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'My Simple App Home Page'),
+      home: const MyHomePage(title: '=== My Simple App Home Page ==='),
     );
   }
 }
@@ -64,6 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void _resetCounter() {
     setState(() {
       _counter = 0;
+    });
+  }
+
+  void _incrementCounterByTwo() {
+    setState(() {
+      _counter += 2;
     });
   }
 
@@ -116,6 +122,14 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: _resetCounter,
               child: const Icon(Icons.refresh),
             ),// This trailing comma makes auto-formatting nicer for build methods.
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.pinkAccent,
+                onPrimary: Colors.white,
+              ),
+              onPressed: _incrementCounterByTwo,
+              child: const Icon(Icons.bolt_sharp),
+            ),
           ],
         ),
       ),
