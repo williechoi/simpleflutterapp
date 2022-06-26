@@ -90,57 +90,36 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,    // 가로로 꽉 채우기
+        mainAxisSize: MainAxisSize.max,                 // 가로 방향으로 가운데 정렬
+        crossAxisAlignment: CrossAxisAlignment.center,  // 세로 방향으로 가운데 정렬
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-                onPrimary: Colors.white70,
-              ),
-              onPressed: _resetCounter,
-              child: const Icon(Icons.refresh),
-            ),// This trailing comma makes auto-formatting nicer for build methods.
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.pinkAccent,
-                onPrimary: Colors.white,
-              ),
-              onPressed: _incrementCounterByTwo,
-              child: const Icon(Icons.bolt_sharp),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+        children: <Widget>[
+          Container(
+            color: Colors.red,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
+          ),
+          Container(
+            color: Colors.green,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
+          ),
+          Container(
+            color: Colors.blue,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
+          )
+        ]
+      )
     );
   }
 }
