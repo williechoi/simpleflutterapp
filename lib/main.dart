@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Startup Name Generator'),
+      home: const MyHomePage(title: '이유식 앱'),
     );
   }
 }
