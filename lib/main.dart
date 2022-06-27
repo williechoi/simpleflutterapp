@@ -67,38 +67,29 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
+      body: GridView.count(
+        crossAxisCount: 2, // 열 수
         children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.home),
-            title: Text('Home'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.deepOrangeAccent,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.favorite),
-            title: Text('Favorite'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.lightGreenAccent,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
           ),
-          ListTile(
-            leading: Icon(Icons.event),
-            title: Text('Event'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
-          ),
-          ListTile(
-            leading: Icon(Icons.paid),
-            title: Text('Donate'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
-          ),
-          ListTile(
-            leading: Icon(Icons.power_settings_new),
-            title: Text('Exit'),
-            trailing: Icon(Icons.navigate_next),
-            onTap: (){},
+          Container(
+            color: Colors.indigo,
+            width: 100,
+            height: 100,
+            padding: const EdgeInsets.all(8.0),
+            margin: const EdgeInsets.all(8.0),
           ),
         ],
       )
