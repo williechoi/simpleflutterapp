@@ -51,30 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  void _resetCounter() {
-    setState(() {
-      _counter = 0;
-    });
-  }
-
-  void _incrementCounterByTwo() {
-    setState(() {
-      _counter += 2;
-    });
-  }
+  final items = List.generate(100, (i) => i).toList();  // 0에서 99까지의 값을 갖는 리스트 생성
 
   @override
   Widget build(BuildContext context) {
@@ -90,35 +67,40 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,    // 가로로 꽉 채우기
-        mainAxisSize: MainAxisSize.max,                 // 가로 방향으로 가운데 정렬
-        crossAxisAlignment: CrossAxisAlignment.center,  // 세로 방향으로 가운데 정렬
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: ListView(
+        scrollDirection: Axis.vertical,
         children: <Widget>[
-          Container(
-            color: Colors.red,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
+          ListTile(
+            leading: Icon(Icons.home),
+            title: Text('Home'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
           ),
-          Container(
-            color: Colors.green,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
+          ListTile(
+            leading: Icon(Icons.favorite),
+            title: Text('Favorite'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
           ),
-          Container(
-            color: Colors.blue,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
-          )
-        ]
+          ListTile(
+            leading: Icon(Icons.event),
+            title: Text('Event'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.paid),
+            title: Text('Donate'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+          ListTile(
+            leading: Icon(Icons.power_settings_new),
+            title: Text('Exit'),
+            trailing: Icon(Icons.navigate_next),
+            onTap: (){},
+          ),
+        ],
       )
     );
   }
