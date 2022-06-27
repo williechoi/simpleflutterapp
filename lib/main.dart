@@ -1,7 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -51,8 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final items = List.generate(100, (i) => i).toList();  // 0에서 99까지의 값을 갖는 리스트 생성
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -61,38 +58,54 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(icon: Icon(Icons.tag_faces)),
+              Tab(text: '메뉴2'),
+              Tab(icon: Icon(Icons.info), text: '메뉴3'),
+            ],
+          ),
+        ),
+        body: TabBarView(children: <Widget>[
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              color: Colors.yellowAccent,
+              width: 100,
+              height: 100,
+            ),
+          ),
+          Container(
+            color: Colors.orangeAccent,
+          ),
+          Container(
+            color: Colors.cyanAccent,
+          ),
+        ]),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: 'Notification',
+            ),
+          ],
+        ),
       ),
-      body: GridView.count(
-        crossAxisCount: 2, // 열 수
-        children: <Widget>[
-          Container(
-            color: Colors.deepOrangeAccent,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
-          ),
-          Container(
-            color: Colors.lightGreenAccent,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
-          ),
-          Container(
-            color: Colors.indigo,
-            width: 100,
-            height: 100,
-            padding: const EdgeInsets.all(8.0),
-            margin: const EdgeInsets.all(8.0),
-          ),
-        ],
-      )
     );
   }
 }
