@@ -1,8 +1,10 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -68,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
           bottom: const TabBar(
             tabs: <Widget>[
               Tab(icon: Icon(Icons.tag_faces)),
-              Tab(text: '메뉴2'),
+              Tab(text: '스케줄'),
               Tab(icon: Icon(Icons.info), text: '메뉴3'),
             ],
           ),
@@ -82,11 +84,45 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100,
             ),
           ),
-          Container(
-            color: Colors.orangeAccent,
+          Column(
+            children: <Widget>[
+              Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TableCalendar(
+                      firstDay: DateTime.utc(2010, 10, 16),
+                      lastDay: DateTime.utc(2030, 3, 14),
+                      focusedDay: DateTime.now(),
+                    ),
+                  )),
+              Expanded(
+                  child: Container(
+                color: Colors.blueAccent,
+              )),
+            ],
           ),
-          Container(
-            color: Colors.cyanAccent,
+          Center(
+            child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                elevation: 4.0,
+                child: const SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Center(
+                    child: Text(
+                      "Let's roll!",
+                      style: TextStyle(
+                        fontSize: 40.0,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'consolas',
+                      ),
+                    ),
+                  ),
+                )),
           ),
         ]),
         bottomNavigationBar: BottomNavigationBar(
