@@ -102,27 +102,57 @@ class _MyHomePageState extends State<MyHomePage> {
               )),
             ],
           ),
-          Center(
-            child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                elevation: 4.0,
-                child: const SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Center(
-                    child: Text(
-                      "Let's roll!",
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'consolas',
+          Column(
+            children: <Widget>[
+              Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  elevation: 4.0,
+                  child: const SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Center(
+                      child: Text(
+                        "Let's roll!",
+                        style: TextStyle(
+                          fontSize: 40.0,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'consolas',
+                        ),
                       ),
                     ),
-                  ),
-                )),
+                  )),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.amberAccent,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    textStyle: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold)),
+                onPressed: () {},
+                child: const Text('go to pee'),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                    primary: Colors.lightGreen,
+
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 30),
+                    textStyle: const TextStyle(
+                        fontSize: 30, fontWeight: FontWeight.bold)),
+                onPressed: () {},
+                child: const Text("flat button"),
+              ),
+              IconButton(
+                icon: Icon(Icons.add),
+                color: Colors.red,
+                iconSize: 20.0,
+                onPressed: (){},
+              ),
+              Image.network('https://picsum.photos/250?image=9', height: 120),
+            ],
           ),
         ]),
         bottomNavigationBar: BottomNavigationBar(
