@@ -52,6 +52,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _pinned = true;
+  bool _snap = false;
+  bool _floating = false;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -60,116 +64,94 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(icon: Icon(Icons.tag_faces)),
-              Tab(text: '스케줄'),
-              Tab(icon: Icon(Icons.info), text: '메뉴3'),
-            ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: _pinned,
+            snap: _snap,
+            floating: _floating,
+            expandedHeight: 100.0,
+            title: const Text("이유식 앱"),
           ),
-        ),
-        body: TabBarView(children: <Widget>[
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Container(
-              color: Colors.yellowAccent,
-              width: 100,
-              height: 100,
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
+              child: Center(
+                  child: Text("Scroll to see the SliverAppBar in effect.")
+              ),
             ),
           ),
-          Column(
-            children: <Widget>[
-              Expanded(
-                  flex: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TableCalendar(
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: DateTime.now(),
-                    ),
-                  )),
-              Expanded(
-                  child: Container(
-                color: Colors.blueAccent,
-              )),
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0),
-                  ),
-                  elevation: 4.0,
-                  child: const SizedBox(
-                    width: 200,
-                    height: 200,
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                return Container(
+                    color: index.isOdd ? Colors.white : Colors.black12,
+                    height: 100.0,
                     child: Center(
-                      child: Text(
-                        "Let's roll!",
-                        style: TextStyle(
-                          fontSize: 40.0,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'consolas',
-                        ),
-                      ),
-                    ),
-                  )),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.amberAccent,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 20),
-                    textStyle: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold)),
-                onPressed: () {},
-                child: const Text('go to pee'),
+                      child: Text('$index', textScaleFactor: 5),
+                    )
+                );
+              },
+              childCount: 100,
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: OverflowBar(
+            overflowAlignment: OverflowBarAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('pinned'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _pinned = val;
+                      });
+                    },
+                    value: _pinned,
+                  )
+                ],
               ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    primary: Colors.lightGreen,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('snap'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _snap = val;
 
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 80, vertical: 30),
-                    textStyle: const TextStyle(
-                        fontSize: 30, fontWeight: FontWeight.bold)),
-                onPressed: () {},
-                child: const Text("flat button"),
+                        // Snapping only applies when the app bar is floating
+                        _floating = _floating || _snap;
+                      });
+                    },
+                    value: _snap,
+                  )
+                ],
               ),
-              IconButton(
-                icon: Icon(Icons.add),
-                color: Colors.red,
-                iconSize: 20.0,
-                onPressed: (){},
-              ),
-              Image.network('https://picsum.photos/250?image=9', height: 120),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Text('floating'),
+                  Switch(
+                    onChanged: (bool val) {
+                      setState(() {
+                        _floating = val;
+                        _snap = _snap && _floating;
+                      });
+                    },
+                    value: _floating,
+                  )
+                ],
+              )
             ],
           ),
-        ]),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notification',
-            ),
-          ],
         ),
       ),
     );
