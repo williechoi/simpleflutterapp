@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 enum ChromeMode { attach, launch }
 
@@ -16,6 +17,8 @@ class _SecondPageState extends State<SecondPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -54,6 +57,121 @@ class _SecondPageState extends State<SecondPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
+          Card(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 40.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          DateFormat('MM월 dd일').format(now),
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              DateFormat('HH:mm').format(now),
+                              style: const TextStyle(
+                                color: Colors.indigo,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Text(
+                              DateFormat('a').format(now),
+                              style: const TextStyle(
+                                color: Colors.indigo,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(right: 8.0, top: 20.0, bottom: 20.0),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          "+ 완료 시간",
+                          style: TextStyle(
+                            color: Colors.indigoAccent,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      onPressed: (){},
+                      child: const Text("-1H"),
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      onPressed: (){},
+                      child: const Text("-10분"),
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      child: const Text("-1분"),
+                      onPressed: (){},
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      child: const Text("+1분"),
+                      onPressed: (){},
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      child: const Text("+10분"),
+                      onPressed: (){},
+                    ),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                          primary: Colors.grey
+                      ),
+                      child: const Text("+1H"),
+                      onPressed: (){},
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
           const TextField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(),
