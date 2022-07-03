@@ -13,8 +13,12 @@ class SecondPage extends StatefulWidget {
 class _SecondPageState extends State<SecondPage> {
   var _isChecked = false;
   var _isChecked2 = false;
+  var _setTarget = false;
   ChromeMode _chromeMode = ChromeMode.attach;
   final _timeList = ['-1H', '-10분', '-1분', '+1분', '+10분', '+1H'];
+  final _adjList = ['-20', '-10', '-5', '+5', '+10', '+20'];
+  final _minList = ['-5분', '-1분', '+1분', '+5분'];
+  final _btnList = ['유산균', '비타민D', '+'];
 
   @override
   Widget build(BuildContext context) {
@@ -53,163 +57,438 @@ class _SecondPageState extends State<SecondPage> {
           ),
         ],
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Card(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 8.0, top: 8.0, bottom: 40.0),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          DateFormat('MM월 dd일').format(now),
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 15.0,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Card(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 8.0, top: 8.0, bottom: 40.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            DateFormat('MM월 dd일').format(now),
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 15.0,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              DateFormat('HH:mm').format(now),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                DateFormat('HH:mm').format(now),
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Text(
+                                DateFormat('a').format(now),
+                                style: const TextStyle(
+                                  color: Colors.indigo,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(
+                            right: 8.0, top: 20.0, bottom: 20.0),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            "+ 완료 시간",
+                            style: TextStyle(
+                              color: Colors.indigoAccent,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _timeList.map((value) {
+                      return Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              primary: Colors.grey,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              value,
                               style: const TextStyle(
-                                color: Colors.indigo,
+                                height: 1.2,
+                                fontSize: 12.0,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  )
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(
+                          left: 8.0,
+                          top: 8.0,
+                        ),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '분유량',
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 180.0,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 4.0, top: 4.0),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Row(
+                            children: [
+                              const Text(
+                                '목표량',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              Switch(
+                                value: _setTarget,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _setTarget = value;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 30.0),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              '180',
+                              style: TextStyle(
                                 fontSize: 25.0,
                                 fontWeight: FontWeight.w700,
+                                color: Colors.indigo,
                               ),
                             ),
                             Text(
-                              DateFormat('a').format(now),
-                              style: const TextStyle(
-                                color: Colors.indigo,
+                              'ml',
+                              style: TextStyle(
                                 fontSize: 20.0,
+                                color: Colors.indigo,
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.only(right: 8.0, top: 20.0, bottom: 20.0),
-                      child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          "+ 완료 시간",
-                          style: TextStyle(
-                            color: Colors.indigoAccent,
-                            fontSize: 20.0,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: 4.0,
+                        ),
+                        child: SizedBox(
+                          width: 30.0,
+                          child: IconButton(
+                            icon: const Icon(Icons.alarm),
+                            color: Colors.indigo,
+                            iconSize: 25.0,
+                            onPressed: () {},
                           ),
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: _timeList.map((value) {
-                    return Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 3.0, right: 3.0),
-                        child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _adjList.map((value) {
+                      return Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               primary: Colors.grey,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                height: 1.2,
+                                fontSize: 12.0,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: const Text(
+                          '분유 시간',
+                          style: TextStyle(
+                            color: Colors.black45,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.expand_less),
+                        onPressed: () {},
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        width: 120,
+                      ),
+                      Row(
+                        children: const [
+                          Text(
+                            '0',
+                            style: TextStyle(
+                              fontSize: 25.0,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.indigo,
+                            ),
+                          ),
+                          Text(
+                            '분',
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.indigo,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 120,
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            primary: Colors.grey,
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            '지금 다 먹었어요!',
+                            style: TextStyle(
+                              fontSize: 12.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _minList.map((value) {
+                      return Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              primary: Colors.grey,
+                            ),
+                            onPressed: () {},
+                            child: Text(
+                              value,
+                              style: const TextStyle(
+                                height: 1.2,
+                                fontSize: 12.0,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+            ),
+            Card(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            '메모',
+                            style: TextStyle(
+                              color: Colors.black45,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 30,
+                          width: 300.0,
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: UnderlineInputBorder(),
+                              labelText: "메모 입력",
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2.0),
+                          shape: BoxShape.rectangle,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.camera_alt),
+                          iconSize: 40.0,
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: _btnList.map((value) {
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            side: const BorderSide(
+                                width: 1.0, style: BorderStyle.none),
+                            backgroundColor: Colors.blue.shade50,
                           ),
                           onPressed: () {},
                           child: Text(
                             value,
                             style: const TextStyle(
                               height: 1.2,
-                              fontSize: 12.0,
+                              fontSize: 15.0,
+                              color: Colors.indigo,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                      ),
-                    );
-                  }).toList(),
-                )
-              ],
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          const TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Please enter your name:"),
-          ),
-          Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Checkbox(
-                  value: _isChecked,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _isChecked = value!;
-                    });
-                  },
-                ),
-                const Text("Say hello when things get wrong."),
-              ]),
-          Switch(
-            value: _isChecked2,
-            onChanged: (value) {
-              setState(() {
-                _isChecked2 = value;
-              });
-            },
-          ),
-          RadioListTile(
-            title: const Text("기존 크롬 사용"),
-            value: ChromeMode.attach,
-            groupValue: _chromeMode,
-            onChanged: (value) {
-              setState(() {
-                _chromeMode = value as ChromeMode;
-              });
-            },
-          ),
-          RadioListTile(
-            title: const Text("새로 크롬 런치"),
-            value: ChromeMode.launch,
-            groupValue: _chromeMode,
-            onChanged: (value) {
-              setState(() {
-                _chromeMode = value as ChromeMode;
-              });
-            },
-          ),
-          ElevatedButton(
-            child: const Text("Go back"),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ],
+                Expanded(
+                    child: OutlinedButton(onPressed: () {}, child: Text('취소'))),
+                Expanded(
+                    child: OutlinedButton(onPressed: () {}, child: Text('저장'))),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
