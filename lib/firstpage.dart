@@ -13,6 +13,8 @@ class _FirstPageState extends State<FirstPage> {
   bool _snap = false;
   bool _floating = false;
 
+
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done

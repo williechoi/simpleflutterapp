@@ -14,6 +14,7 @@ class _SecondPageState extends State<SecondPage> {
   var _isChecked = false;
   var _isChecked2 = false;
   ChromeMode _chromeMode = ChromeMode.attach;
+  final _timeList = ['-1H', '-10분', '-1분', '+1분', '+10분', '+1H'];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _SecondPageState extends State<SecondPage> {
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Card(
@@ -66,7 +67,8 @@ class _SecondPageState extends State<SecondPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(left: 8.0, top: 8.0, bottom: 40.0),
+                      padding: const EdgeInsets.only(
+                          left: 8.0, top: 8.0, bottom: 40.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(
@@ -106,7 +108,8 @@ class _SecondPageState extends State<SecondPage> {
                       ),
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(right: 8.0, top: 20.0, bottom: 20.0),
+                      padding:
+                          EdgeInsets.only(right: 8.0, top: 20.0, bottom: 20.0),
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
@@ -122,52 +125,32 @@ class _SecondPageState extends State<SecondPage> {
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
+                  children: _timeList.map((value) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                        child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              primary: Colors.grey,
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              height: 1.2,
+                              fontSize: 12.0,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
                       ),
-                      onPressed: (){},
-                      child: const Text("-1H"),
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
-                      ),
-                      onPressed: (){},
-                      child: const Text("-10분"),
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
-                      ),
-                      child: const Text("-1분"),
-                      onPressed: (){},
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
-                      ),
-                      child: const Text("+1분"),
-                      onPressed: (){},
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
-                      ),
-                      child: const Text("+10분"),
-                      onPressed: (){},
-                    ),
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          primary: Colors.grey
-                      ),
-                      child: const Text("+1H"),
-                      onPressed: (){},
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 )
               ],
             ),
