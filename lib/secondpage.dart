@@ -121,7 +121,7 @@ class _SecondPageState extends State<SecondPage> {
                             "+ 완료 시간",
                             style: TextStyle(
                               color: Colors.indigoAccent,
-                              fontSize: 20.0,
+                              fontSize: 16.0,
                             ),
                           ),
                         ),
@@ -432,7 +432,6 @@ class _SecondPageState extends State<SecondPage> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2.0),
                           shape: BoxShape.rectangle,
                         ),
                         child: IconButton(
@@ -482,9 +481,50 @@ class _SecondPageState extends State<SecondPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                    child: OutlinedButton(onPressed: () {}, child: Text('취소'))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                              '취소',
+                            style: TextStyle(
+                              height: 1.2,
+                              fontSize: 15.0,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                      ),
+                    )),
                 Expanded(
-                    child: OutlinedButton(onPressed: () {}, child: Text('저장'))),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            backgroundColor: Colors.indigo,
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                              '저장',
+                            style: TextStyle(
+                              height: 1.2,
+                              fontSize: 15.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                      ),
+                    )),
               ],
             ),
           ],
