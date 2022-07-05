@@ -11,14 +11,47 @@ class SecondPage extends StatefulWidget {
 }
 
 class _SecondPageState extends State<SecondPage> {
-  var _isChecked = false;
-  var _isChecked2 = false;
+  // mutable variables
   var _setTarget = false;
-  ChromeMode _chromeMode = ChromeMode.attach;
+
+  // immutable variables
   final _timeList = ['-1H', '-10분', '-1분', '+1분', '+10분', '+1H'];
   final _adjList = ['-20', '-10', '-5', '+5', '+10', '+20'];
   final _minList = ['-5분', '-1분', '+1분', '+5분'];
   final _btnList = ['유산균', '비타민D', '+'];
+  final ButtonStyle adjButtonStyle = OutlinedButton.styleFrom(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+    primary: Colors.grey,
+    padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0),
+  );
+
+  final TextStyle adjTextStyle = const TextStyle(
+    height: 1.2,
+    fontSize: 15.0,
+  );
+
+  dynamic cardTitle = (val) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 8.0,
+        top: 4.0,
+      ),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          val,
+          style: const TextStyle(
+            color: Colors.black45,
+            fontSize: 15.0,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  };
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,22 +102,9 @@ class _SecondPageState extends State<SecondPage> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, top: 8.0, bottom: 40.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            DateFormat('MM월 dd일').format(now),
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ),
-                      ),
+                      cardTitle(DateFormat('MM월 dd일').format(now)),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Align(
@@ -131,25 +151,17 @@ class _SecondPageState extends State<SecondPage> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: _timeList.map((value) {
                       return Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 3.0),
                           child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              primary: Colors.grey,
-                            ),
+                            style: adjButtonStyle,
                             onPressed: () {},
                             child: Text(
                               value,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 12.0,
-                              ),
+                              style: adjTextStyle,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -166,25 +178,9 @@ class _SecondPageState extends State<SecondPage> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(
-                          left: 8.0,
-                          top: 8.0,
-                        ),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            '분유량',
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
+                      cardTitle('분유량'),
                       const SizedBox(
                         width: 180.0,
                       ),
@@ -266,21 +262,13 @@ class _SecondPageState extends State<SecondPage> {
                     children: _adjList.map((value) {
                       return Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 3.0, right: 3.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 3.0),
                           child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              primary: Colors.grey,
-                            ),
+                            style: adjButtonStyle,
                             onPressed: () {},
                             child: Text(
                               value,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 12.0,
-                              ),
+                              style: adjTextStyle,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -297,19 +285,9 @@ class _SecondPageState extends State<SecondPage> {
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: const Text(
-                          '분유 시간',
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
+                      cardTitle('분유시간'),
                       IconButton(
                         icon: Icon(Icons.expand_less),
                         onPressed: () {},
@@ -346,11 +324,7 @@ class _SecondPageState extends State<SecondPage> {
                       SizedBox(
                         width: 120,
                         child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
-                            primary: Colors.grey,
-                          ),
+                          style: adjButtonStyle,
                           onPressed: () {},
                           child: const Text(
                             '지금 다 먹었어요!',
@@ -371,19 +345,11 @@ class _SecondPageState extends State<SecondPage> {
                         child: Padding(
                           padding: const EdgeInsets.only(left: 4.0, right: 4.0),
                           child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              primary: Colors.grey,
-                            ),
+                            style: adjButtonStyle,
                             onPressed: () {},
                             child: Text(
                               value,
-                              style: const TextStyle(
-                                height: 1.2,
-                                fontSize: 12.0,
-                              ),
+                              style: adjTextStyle,
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -399,20 +365,7 @@ class _SecondPageState extends State<SecondPage> {
                 children: [
                   Row(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            '메모',
-                            style: TextStyle(
-                              color: Colors.black45,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      )
+                      cardTitle('메모'),
                     ],
                   ),
                   Row(
@@ -482,49 +435,47 @@ class _SecondPageState extends State<SecondPage> {
               children: <Widget>[
                 Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
-                            ),
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                              '취소',
-                            style: TextStyle(
-                              height: 1.2,
-                              fontSize: 15.0,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.center,
-                          )
+                  padding: const EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
                       ),
-                    )),
+                      onPressed: () {},
+                      child: const Text(
+                        '취소',
+                        style: TextStyle(
+                          height: 1.2,
+                          fontSize: 15.0,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.center,
+                      )),
+                )),
                 Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: OutlinedButton(
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(2.0),
-                            ),
-                            backgroundColor: Colors.indigo,
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                              '저장',
-                            style: TextStyle(
-                              height: 1.2,
-                              fontSize: 15.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            textAlign: TextAlign.center,
-                          )
+                  padding: const EdgeInsets.all(10.0),
+                  child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
+                        backgroundColor: Colors.indigo,
                       ),
-                    )),
+                      onPressed: () {},
+                      child: const Text(
+                        '저장',
+                        style: TextStyle(
+                          height: 1.2,
+                          fontSize: 15.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.center,
+                      )),
+                )),
               ],
             ),
           ],
