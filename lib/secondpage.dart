@@ -18,7 +18,7 @@ class _SecondPageState extends State<SecondPage> {
   final _timeList = ['-1H', '-10분', '-1분', '+1분', '+10분', '+1H'];
   final _adjList = ['-20', '-10', '-5', '+5', '+10', '+20'];
   final _minList = ['-5분', '-1분', '+1분', '+5분'];
-  final _btnList = ['유산균', '비타민D', '+'];
+  final _btnList = ['유산균', '비타민D', '비타민A', '+'];
   final ButtonStyle adjButtonStyle = OutlinedButton.styleFrom(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(15.0),
